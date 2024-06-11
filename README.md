@@ -19,10 +19,10 @@
     - Evaluation metrics such as accuracy, precision, recall, and F1-score are used to assess model performance.
 
 ### Detailed Explanation:
-**Text Preprocessing and Embedding**
+- **Text Preprocessing and Embedding**
     - **Tokenization and Padding**: Tokenization converts text into sequences of integers, where each integer represents a word in a dictionary. Padding ensures all sequences have the same length, necessary for batch processing in neural networks.
     - **Embedding Layer**: Instead of using one-hot encoding, which results in sparse vectors, the embedding layer maps each word to a dense vector of real numbers. This layer can capture semantic meanings and relationships between words based on their usage in the training data.
-**Deep Learning Model**
+- **Deep Learning Model**
         - **Bidirectional LSTM**: Traditional RNNs can struggle with long-term dependencies due to vanishing gradient problems. LSTMs address this by using gates to control the flow of information. Bidirectional LSTMs further enhance this by processing the sequence in both directions, making them particularly powerful for NLP tasks where context from both past and future words is important.
         - **Dense Layers and Activation Functions**: After the LSTM layers, dense layers are used for the final classification task. The activation function in the output layer (sigmoid) is suitable for binary classification tasks, providing a probability score for the sentiment.
 
