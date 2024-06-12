@@ -5,6 +5,7 @@
 This project aims to develop a sentiment analysis model that classifies movie reviews into positive or negative sentiments. The model is built using a Bidirectional Long Short-Term Memory (BiLSTM) neural network with pre-trained GloVe embeddings. The project includes data preprocessing, model training, evaluation, and deployment using FastAPI.
 
 ## Project Structure
+```plaintext
 imdb_sentiment/
 │
 ├── app/
@@ -40,6 +41,7 @@ imdb_sentiment/
 ├── requirements.txt
 ├── README.md
 └── .gitignore
+```
 
 ## Objectives
 
