@@ -1,30 +1,155 @@
-# imdb_sentiment
+# Sentiment Analysis Project (imdb_sentiment)
 
-### Project Components and Their Roles
-1. **Data Collection and Preprocessing**:
-    - Collecting text data (movie reviews).
-    - Cleaning and tokenizing text.
-    - Padding sequences to ensure uniform input length.
-2. **Model Construction**:
-    - Embedding Layer:
-        - Converts words into dense vectors of fixed size.
-        - Learns word representations during training.
-    - Bidirectional LSTM Layer:
-        - Processes sequences of word embeddings.
-        - Captures dependencies and context in both forward and backward directions.
-    - Dense Layers:
-        - Output layer for classification (sentiment prediction).
-3. **Model Training and Evaluation**:
-    - The model is trained on preprocessed text data using deep learning techniques.
-    - Evaluation metrics such as accuracy, precision, recall, and F1-score are used to assess model performance.
+## Overview
 
-### Detailed Explanation:
-- **Text Preprocessing and Embedding**
-    - **Tokenization and Padding**: Tokenization converts text into sequences of integers, where each integer represents a word in a dictionary. Padding ensures all sequences have the same length, necessary for batch processing in neural networks.
-    - **Embedding Layer**: Instead of using one-hot encoding, which results in sparse vectors, the embedding layer maps each word to a dense vector of real numbers. This layer can capture semantic meanings and relationships between words based on their usage in the training data.
-- **Deep Learning Model**
-    - **Bidirectional LSTM**: Traditional RNNs can struggle with long-term dependencies due to vanishing gradient problems. LSTMs address this by using gates to control the flow of information. Bidirectional LSTMs further enhance this by processing the sequence in both directions, making them particularly powerful for NLP tasks where context from both past and future words is important.
-    - **Dense Layers and Activation Functions**: After the LSTM layers, dense layers are used for the final classification task. The activation function in the output layer (sigmoid) is suitable for binary classification tasks, providing a probability score for the sentiment.
+This project aims to develop a sentiment analysis model that classifies movie reviews into positive or negative sentiments. The model is built using a Bidirectional Long Short-Term Memory (BiLSTM) neural network with pre-trained GloVe embeddings. The project includes data preprocessing, model training, evaluation, and deployment using FastAPI.
 
-### Why Use Deep Learning for NLP?
-Deep learning models, particularly those using LSTM and transformer architectures, have shown significant improvements over traditional machine learning models in NLP tasks due to their ability to learn and capture complex patterns and dependencies in text data.
+## Project Structure
+imdb_sentiment/
+│
+├── app/
+│ ├── init.py
+│ ├── main.py
+│ ├── models/
+│ │ ├── model.h5
+│ ├── tokenizer/
+│ │ ├── tokenizer.pickle
+│ ├── routes/
+│ │ ├── init.py
+│ │ ├── sentiment.py
+│ ├── utils/
+│ │ ├── init.py
+│ │ ├── preprocessing.py
+│
+├── data/
+│ ├── raw/
+│ ├── processed/
+│ │ ├── train_padded.npy
+│ │ ├── train_labels.npy
+│ │ ├── test_padded.npy
+│ │ ├── test_labels.npy
+│
+├── notebooks/
+│ ├── data_preprocessing.ipynb
+│ ├── model_training.ipynb
+│
+├── scripts/
+│ ├── preprocess.py
+│ ├── train_model.py
+│
+├── requirements.txt
+├── README.md
+└── .gitignore
+
+## Objectives
+
+- Develop a sentiment analysis model to classify movie reviews.
+- Ensure the model is trained on a balanced dataset to mitigate bias.
+- Deploy the model using FastAPI to provide a REST API for sentiment prediction.
+
+## Data Preprocessing
+
+1. **Data Loading**:
+   - The IMDb movie reviews dataset is used, loaded via TensorFlow Datasets.
+
+2. **Cleaning**:
+   - Text data is cleaned by removing special characters and converting to lowercase.
+
+3. **Tokenization**:
+   - Text is tokenized into sequences of integers using the Keras `Tokenizer`.
+
+4. **Padding**:
+   - Sequences are padded to ensure uniform length, suitable for batch processing.
+
+5. **Balancing**:
+   - The dataset is balanced by undersampling the majority class to ensure equal representation of positive and negative samples.
+
+6. **Saving**:
+   - The tokenizer and processed data (padded sequences and labels) are saved for future use.
+
+## Model Architecture
+
+The model is a Bidirectional LSTM (BiLSTM) neural network with the following layers:
+
+1. **Embedding Layer**:
+   - Uses pre-trained GloVe embeddings to convert words into dense vectors of fixed size, capturing semantic meanings.
+
+2. **Bidirectional LSTM Layers**:
+   - First Bidirectional LSTM layer with 128 units and `return_sequences=True` to output sequences.
+   - Dropout layer with 0.5 rate to prevent overfitting.
+   - Second Bidirectional LSTM layer with 64 units for further capturing context from both directions.
+
+3. **Dense Layers**:
+   - A dense layer with 64 units and ReLU activation.
+   - Output dense layer with 1 unit and sigmoid activation to predict the sentiment probability.
+
+## Model Compilation and Training
+
+- **Loss Function**: Binary Crossentropy, suitable for binary classification tasks.
+- **Optimizer**: Adam, which adjusts learning rate dynamically.
+- **Metrics**: Accuracy, to measure the performance of the model.
+- **Training**: The model is trained on the balanced dataset for 10 epochs with a batch size of 32.
+
+## Model Evaluation
+
+The model’s performance is evaluated on the test set using accuracy and loss metrics. Additional evaluation metrics such as precision, recall, and F1-score are used to gain insights into model performance. Confidence levels for predictions are calculated to understand the model's certainty in its predictions.
+
+## Deployment
+
+The trained model is deployed using FastAPI, allowing it to serve predictions via a REST API. An endpoint `/predict` is created to accept text input and return the predicted sentiment and confidence level.
+
+### FastAPI Endpoint
+
+**Endpoint**: `/predict`
+- **Input**: JSON with a text field, e.g., `{"text": "I love this movie!"}`
+- **Output**: JSON with predicted sentiment and confidence level, e.g., `{"sentiment": "positive", "confidence": 0.9677}`
+
+## Usage Instructions
+
+### Setting Up the Environment
+
+1. **Create a Virtual Environment:**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # On Windows use `venv\Scripts\activate`
+
+2. **Install Dependencies:**
+    ```bash
+    pip install -r requirements.txt
+
+### Running the Data Preprocessing Script
+
+1. **Navigate to the project directory:**
+    ```bash
+    cd imdb_sentiment
+
+2. **Run the preprocessing script:**
+    ```bash
+    python scripts/preprocess.py
+
+### Training the Model
+
+1. **Run the training script:**
+    ```bash
+    python scripts/train_model.py
+
+### Running the FastAPI Application
+
+1. **Navigate to the project directory:**
+    ```bash
+    cd imdb_sentiment
+
+2. **Run the FastAPI application using Uvicorn:**
+    ```bash
+    uvicorn app.main:app --reload
+
+3. **Access the API documentation:**
+    - Swagger UI: http://127.0.0.1:8000/docs
+    - ReDoc: http://127.0.0.1:8000/redoc
+
+## Additional Information
+
+- Advanced Models: 
+    - The model_training.ipynb notebook includes steps for training more advanced models like BERT, but these models are not used in the current API implementation.
+- Project Report: 
+    - Detailed documentation of the project objectives, methodologies, and results is provided.
