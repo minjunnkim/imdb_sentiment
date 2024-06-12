@@ -1,0 +1,11 @@
+venv/
+pycache/
+*.pyc
+*.pyo
+*.pyd
+*.h5
+*.keras
+*.pickle
+.DS_Store
+notebooks/imdb_sentiment.ipynb
+glove.6B/

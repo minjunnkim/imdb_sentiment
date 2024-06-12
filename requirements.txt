@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+tensorflow
+numpy
+pickle
+
+# Debugging
+scikit-learn
+transformers
+tf-keras
