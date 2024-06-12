@@ -1,11 +1,3 @@
-import tensorflow_datasets as tfds
-from tensorflow.keras.preprocessing.text import Tokenizer
-from tensorflow.keras.preprocessing.sequence import pad_sequences
-
-import numpy as np
-
-import pickle
-
 import sys
 import os
 
@@ -15,6 +7,14 @@ parent_directory = os.path.abspath(os.path.join(os.getcwd(), '..'))
 # Add the parent directory to the system path
 if parent_directory not in sys.path:
     sys.path.append(parent_directory)
+
+import tensorflow_datasets as tfds
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+
+import numpy as np
+
+import pickle
 
 from app.utils.preprocessing import clean_text, preprocess_data
 

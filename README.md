@@ -30,6 +30,8 @@ imdb_sentiment/
 │ │ ├── test_padded.npy
 │ │ ├── test_labels.npy
 │
+├── glove.6B/
+│
 ├── notebooks/
 │ ├── data_preprocessing.ipynb
 │ ├── model_training.ipynb
@@ -107,6 +109,15 @@ The trained model is deployed using FastAPI, allowing it to serve predictions vi
 - **Output**: JSON with predicted sentiment and confidence level, e.g., `{"sentiment": "positive", "confidence": 0.9677}`
 
 ## Usage Instructions
+
+### Installing GloVe Embeddings
+
+1. **Download Zip file from Github:**
+    - Link to GloVe Github Repository: https://github.com/stanfordnlp/GloVe
+    - Link to GloVe Embeddings download: https://huggingface.co/stanfordnlp/glove/resolve/main/glove.6B.zip 
+
+2. **Moving the .txt files to glove.6B folder**
+    - Please move the .txt files in the Zip file downloaded inside the project's glove.6B folder.
 
 ### Setting Up the Environment
 
