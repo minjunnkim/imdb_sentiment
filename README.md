@@ -36,10 +36,6 @@ imdb_sentiment/
 │ ├── data_preprocessing.ipynb
 │ ├── model_training.ipynb
 │
-├── scripts/
-│ ├── preprocess.py
-│ ├── train_model.py
-│
 ├── requirements.txt
 ├── README.md
 └── .gitignore
@@ -130,21 +126,26 @@ The trained model is deployed using FastAPI, allowing it to serve predictions vi
     ```bash
     pip install -r requirements.txt
 
-### Running the Data Preprocessing Script
+### Running the Jupyter Notebooks
 
 1. **Navigate to the project directory:**
     ```bash
     cd imdb_sentiment
 
-2. **Run the preprocessing script:**
-    ```bash
-    python scripts/preprocess.py
+2. **Run the preprocessing notbook:**
+    - Open and run `data_preprocessing.ipynb` to preprocess the data and save the processed data files.
 
-### Training the Model
+3. **Run the training notebook:**
+    - Open and run `model_training.ipynb` to train the model and save the trained model file.
 
-1. **Run the training script:**
-    ```bash
-    python scripts/train_model.py
+### Changing Hyperparameters in Jupyter Notebooks
+
+To tailor the model to your specific needs, you can change various hyperparameters in the `model_training.ipynb` notebook. Some of the key hyperparameters you might want to adjust include:
+- Number of LSTM Units: Adjust the number of units in the LSTM layers.
+- Dropout Rate: Change the dropout rate to prevent overfitting.
+- Embedding Dimension: Modify the size of the word embeddings.
+- Batch Size: Experiment with different batch sizes during training.
+- Number of Epochs: Increase or decrease the number of epochs to control the training duration.
 
 ### Running the FastAPI Application
 
@@ -164,5 +165,3 @@ The trained model is deployed using FastAPI, allowing it to serve predictions vi
 
 - Advanced Models: 
     - The model_training.ipynb notebook includes steps for training more advanced models like BERT, but these models are not used in the current API implementation.
-- Project Report: 
-    - Detailed documentation of the project objectives, methodologies, and results is provided.
