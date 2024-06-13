@@ -64,7 +64,13 @@ imdb_sentiment/
 5. **Balancing**:
    - The dataset is balanced by undersampling the majority class to ensure equal representation of positive and negative samples.
 
-6. **Saving**:
+6. **Data Augmentation**:
+   - To further balance the dataset, data augmentation techniques can be used to generate more samples for the minority class.
+
+7. **Using GloVe Embeddings**:
+   - Pre-trained GloVe embeddings are used to convert words into dense vectors of fixed size, capturing semantic meanings.
+
+8. **Saving**:
    - The tokenizer and processed data (padded sequences and labels) are saved for future use.
 
 ## Model Architecture
